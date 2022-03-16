@@ -1,23 +1,25 @@
 package hu.petrik.bankproject;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Bank {
-    private List<Szamla> szamlaLista;
+    private HashMap<String, Szamla> hashMap;
     public Bank() {
-
+        hashMap = new HashMap<>();
     }
     // Egy létező számlára pénzt helyez
     public void egyenlegFeltolt(String szamlaszam, long osszeg)
     {
-        throw new UnsupportedOperationException();
+        Szamla sz = hashMap.get(szamlaszam);
+        sz.setEgyenleg(sz.getEgyenleg() + osszeg);
     }
 
     // Új számlát nyit a megadott névvel, számlaszámmal
     public void ujSzamla(String nev, String szamlaszam)
     {
         Szamla sz = new Szamla(nev, szamlaszam);
-        szamlaLista.add(sz);
+        hashMap.put(szamlaszam, sz);
     }
 
     // Két számla között utal.
@@ -30,13 +32,14 @@ public class Bank {
     // Lekérdezi az adott számlán lévő pénzösszeget
     public long egyenleg(String szamlaszam)
     {
-        throw new UnsupportedOperationException();
+        Szamla sz = hashMap.get(szamlaszam);
+        return sz.getEgyenleg();
     }
 
     private class Szamla {
         private String tulajdonos;
         private String szamlaszam;
-        private int egyenleg;
+        private long egyenleg;
 
         public Szamla(String tulajdonos, String szamlaszam) {
             this.tulajdonos = tulajdonos;
@@ -56,11 +59,11 @@ public class Bank {
             return szamlaszam;
         }
 
-        public int getEgyenleg() {
+        public long getEgyenleg() {
             return egyenleg;
         }
 
-        public void setEgyenleg(int egyenleg) {
+        public void setEgyenleg(long egyenleg) {
             this.egyenleg = egyenleg;
         }
     }
