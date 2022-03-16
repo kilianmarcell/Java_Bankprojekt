@@ -18,8 +18,12 @@ public class Bank {
     // Új számlát nyit a megadott névvel, számlaszámmal
     public void ujSzamla(String nev, String szamlaszam)
     {
-        Szamla sz = new Szamla(nev, szamlaszam);
-        hashMap.put(szamlaszam, sz);
+        if (hashMap.containsKey(szamlaszam)) {
+            throw new IllegalArgumentException("A megadott számlaszám már létezik!");
+        } else {
+            Szamla sz = new Szamla(nev, szamlaszam);
+            hashMap.put(szamlaszam, sz);
+        }
     }
 
     // Két számla között utal.
