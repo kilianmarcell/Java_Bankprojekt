@@ -36,6 +36,9 @@ public class Bank {
     // Lekérdezi az adott számlán lévő pénzösszeget
     public long egyenleg(String szamlaszam)
     {
+        if (!hashMap.containsKey(szamlaszam))
+            throw new HibasSzamlaSzamException(szamlaszam);
+
         Szamla sz = hashMap.get(szamlaszam);
         return sz.getEgyenleg();
     }

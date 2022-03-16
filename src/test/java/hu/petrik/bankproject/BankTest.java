@@ -44,4 +44,9 @@ class BankTest {
         assertThrows(IllegalArgumentException.class,
                 () -> bank.ujSzamla("Gipsz Jakab", "1234"));
     }
+
+    @Test
+    void nemLetezoSzamlaEgyenlegKivetel() {
+        assertThrows(HibasSzamlaSzamException.class, () -> bank.egyenleg("1"));
+    }
 }
